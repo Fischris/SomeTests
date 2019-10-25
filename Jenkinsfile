@@ -1,18 +1,34 @@
 pipeline {
-  agent {
-    node {
-      label 'gelabelt'
-    }
-
-  }
+  agent any
   stages {
-    stage('') {
-      steps {
-        writeFile(file: 'pdn', text: 'abcdefg')
+    stage('Printing') {
+      parallel {
+        stage('Printing') {
+          steps {
+            echo 'Hello MyWorld'
+          }
+        }
+        stage('Printe Another') {
+          steps {
+            echo 'Hello another world!'
+          }
+        }
       }
     }
-  }
-  environment {
-    asdasd = '01'
+    stage('Fehler Signal') {
+      steps {
+        error 'Ich bin ein Fehler Signal'
+      }
+    }
+    stage('Ich schlafe') {
+      steps {
+        sleep 10
+      }
+    }
+    stage('File writing') {
+      steps {
+        writeFile(file: 'Testfile', text: 'Hallo, ich bin ein Testfile')
+      }
+    }
   }
 }
